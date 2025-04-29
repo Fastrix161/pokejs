@@ -111,7 +111,6 @@ body{
     align-items: center;
     flex-wrap: wrap;
     width: 250px;
-    /* padding-left: 50px; */
 }
 #downPokemon{
     display: flex;
@@ -120,9 +119,20 @@ body{
     align-items: center;
     flex-wrap: wrap;
     width: 250px;
-    /* padding-right: 50px; */
 }
-.pokebox{
+#battletext{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 25px;
+    width: 800px;
+    height: 100px;
+    position : absolute;
+    border: black 2px solid;
+    background-color: rgb(149, 169, 193);
+}
+.pokebox1{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -132,20 +142,43 @@ body{
     background-color: rgb(149, 193, 155);
     border-radius: 10%;
 }
-.pokename{
+.pokename1{
     text-transform: capitalize;
 }
-.movebox{
+.pokebox2{
     display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
     border: black 2px solid;
-    background-color: rgb(233, 214, 225);
+    background-color: rgb(149, 193, 155);
+    border-radius: 10%;
+}
+.pokename2{
+    text-transform: capitalize;
+}
+
+.movebox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    border: black 2px solid;
+    width: 380px;
+    height: 50px;
+    color: rgb(42, 116, 165);
+    background-color: rgb(221, 209, 216);
+    opacity: 0.95;
+    border-radius: 5px;
+}
+.movebox :hover{
+    cursor: pointer;
 }
 .moveboxname{
     text-transform: capitalize;
+    font-size: 20px;
     color: brown;
 }
 #protPokemon-moves{
@@ -155,15 +188,28 @@ body{
     justify-content: space-between;
     align-items: space-between;
     flex-wrap: wrap;
-    top: 600px;
+    width: 800px;
+    top: 550px;
     border: rgb(224, 13, 13) 2px solid;
 }
 #hp1cover{
-    color: rgb(224, 206, 206);
-    width: 100px;
-    height: 30px;
+    border: black 3px solid;
+    width: 80px;
+    height: 10px;
 }
+
 #hpbar1{
-    color: rgb(14, 82, 44);
+    display: flex;
+    background-color: rgb(14, 82, 44);
+    height: 10px;
+}
+#hp2cover{
+    border: black 3px solid;
+    width: 80px;
+    height: 10px;
+}
+#hpbar2{
+    display: flex;
+    background-color: rgb(14, 82, 44);
     height: 10px;
 }
