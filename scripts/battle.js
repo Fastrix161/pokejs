@@ -30,17 +30,7 @@ async function getPokemon(id) {
   if(t<4){
     return null;
   }
-  // for(let i=0;i<data.moves.length;i++){
-    
-  //   let moveData = await moveDetails(data.moves[i].move.url);
-  //   if((
-  //     moveData.accuracy==null)||(moveData.power==null)||(moveData.pp==null)){
-  //     t--;
-  //   }
-  //   }
-  // if(t<4){
-  //   return null;
-  // }
+ 
   const pokemon = {
     id: 1,
     name: "Bulbasaur",
@@ -221,7 +211,6 @@ async function Team2() {
   antagonist.activePokemon = 0;
   antiPoke(antagonist.pokemon[antagonist.activePokemon]);
   antagonist.numPokemon = 6;
-  // Team2.push(pokemon);
 }
 async function protPoke(data) {
   const name = data.name;
@@ -316,7 +305,7 @@ async function antiPoke(data) {
   const antiName = document.getElementById("antiPokemon-name");
   antiName.innerText = name;
   const antiHp = document.getElementById("antiPokemon-hp");
-  antiHp.innerText = `HP: ${hp}`; //hp;
+  antiHp.innerText = `HP: ${hp}`; 
   const antiImage = document.getElementById("antiPokemon-image");
   antiImage.src = sprite;
 
@@ -325,41 +314,7 @@ async function antiPoke(data) {
   hpbar2.style.width = 100 + "%";
 }
 
-// const typeChart = {
-//     normal: { weak: [], strong: [], immune: ['ghost'] },
-//     fire: { weak: ['water', 'ground', 'rock'], strong: ['grass', 'ice', 'bug', 'steel'] },
-//     water: { weak: ['grass', 'electric'], strong: ['fire', 'ground', 'rock'] },
-//     electric: { weak: ['ground'], strong: ['water', 'flying'] },
-//     grass: { weak: ['fire', 'flying', 'poison', 'bug', 'ice'], strong: ['water', 'ground', 'rock'] },
-//     ice: { weak: ['fire', 'fighting', 'rock', 'steel'], strong: ['grass', 'ground', 'flying', 'dragon'] },
-//     fighting: { weak: ['flying', 'psychic', 'fairy'], strong: ['normal', 'ice', 'rock', 'dark', 'steel'] },
-//     poison: { weak: ['ground', 'psychic'], strong: ['grass', 'fairy'] , immune: ['steel']},
-//     ground: { weak: ['water', 'grass', 'ice'], strong: ['fire', 'electric', 'poison', 'rock'], immune: ['flying'] },
-//     flying: { weak: ['electric', 'ice', 'rock'], strong: ['grass', 'fighting', 'bug'] },
-//     psychic: { weak: ['bug', 'dark', 'ghost'], strong: ['fighting', 'poison'] , immune: ['dark']},
-//     bug: { weak: ['fire', 'flying', 'rock'], strong: ['grass', 'psychic', 'dark'] },
-//     rock: { weak: ['water', 'grass', 'fighting', 'ground', 'steel'], strong: ['fire', 'ice', 'flying', 'bug'] },
-//     ghost: { weak: ['ghost', 'dark'], strong: ['psychic', 'ghost'], immune: ['normal', 'fighting'] },
-//     dragon: { weak: ['ice', 'dragon', 'fairy'], strong: ['dragon'] , immune: ['fairy']},
-//     dark: { weak: ['fighting', 'bug', 'fairy'], strong: ['psychic', 'ghost'], immune: ['psychic']},
-//     steel: { weak: ['fire', 'fighting', 'ground'], strong: ['ice', 'rock', 'fairy'], immune: ['poison'] },
-//     fairy: { weak: ['poison', 'steel'], strong: ['fighting', 'dragon', 'dark'], immune: ['dragon'] },
-// };
-
-// function calculateDamage(moveType, targetType) {
-//     if (typeChart[moveType].strong.includes(targetType)) {
-//         return 2; // Super effective
-//     } else if (typeChart[moveType].weak.includes(targetType)) {
-//         return 0.5; // Not very effective
-//     } else if (typeChart[moveType].immune.includes(targetType)){
-//         return 0; // No effect
-//     } else {
-//         return 1; // Normal damage
-//     }
-// }
-
 async function Dmg() {
-  // let typeMult=1;
   await timer(200);
   const protMain = protagonist.pokemon[protagonist.activePokemon];
   const antiMain = antagonist.pokemon[antagonist.activePokemon];
@@ -401,7 +356,7 @@ async function Dmg() {
 
       antiMain.lvlhp = 0;
       let antiM = document.querySelector(
-        '.pokebox2[id="' + `${antagonist.activePokemon}` + '"]'
+        `.pokebox2[id="${antagonist.activePokemon}"]`
       );
       
       antiM.style.backgroundColor = "red";
@@ -464,7 +419,7 @@ async function Dmg() {
       await timer(1000);
       protMain.lvlhp = 0;
       let protM = document.querySelector(
-        '.pokebox1[id="' + `${protagonist.activePokemon}` + '"]'
+        `.pokebox1[id="${protagonist.activePokemon}"]`
       );
       protM.style.backgroundColor = "red";
       protagonist.numPokemon--;
@@ -500,7 +455,7 @@ async function updatepkmn() {
     protagonist.pokemon[protagonist.activePokemon].lvlhp
   }`;
   const teamHp1 = document.querySelector(
-    '.pokehp1[id="' + `${protagonist.activePokemon}` + '"]'
+    `.pokehp1[id="${protagonist.activePokemon}"]`
   );
   teamHp1.innerText = `HP: ${
     protagonist.pokemon[protagonist.activePokemon].lvlhp
@@ -523,7 +478,7 @@ async function updatepkmn() {
     antagonist.pokemon[antagonist.activePokemon].lvlhp
   }`;
   const teamHp2 = document.querySelector(
-    '.pokehp2[id="' + `${antagonist.activePokemon}` + '"]'
+    `.pokehp2[id="${antagonist.activePokemon}"]`
   );
   teamHp2.innerText = `HP: ${
     antagonist.pokemon[antagonist.activePokemon].lvlhp
@@ -543,7 +498,7 @@ async function updatepkmn() {
     "%";
 
   const pp1 = document.querySelector(
-    '.moveboxpp[id="' + `${protagonist.currentMove}` + '"]'
+    `.moveboxpp[id="${protagonist.currentMove}"]`
   );
 
   pp1.innerText =
@@ -571,19 +526,14 @@ async function updatepkmn() {
   battletext.innerText = "Choose a move";
 }
 async function updateMoves() {
-  // movebox.style.pointerEvents = "auto";
   for( let i = 0; i < 4; i++) {
     let box = document.querySelector(
-      '.movebox[id="' + `${i}` + '"]'
+      `.movebox[id="${i}"]`
     );
-    // let test=
-    // protagonist.pokemon[protagonist.activePokemon].moves[i].pp;
     box.addEventListener("click", async (e) => {
-      
-      // if(protagonist.pokemon[protagonist.activePokemon].moves[i].pp==test)
       for( let j = 0; j < 4; j++) {
         let tbox = document.querySelector(
-          '.movebox[id="' + `${j}` + '"]'
+          `.movebox[id="${j}"]`
         );
           tbox.style.pointerEvents = "none";
           setTimeout(() => {
@@ -596,26 +546,6 @@ async function updateMoves() {
   
   }
   
-  // document
-  //   .querySelector('.movebox[id="0"]')
-  //   .addEventListener("click", async () => {
-  //     moveChoose(0).then();
-  //   });
-  // document
-  //   .querySelector('.movebox[id="1"]')
-  //   .addEventListener("click", async () => {
-  //     moveChoose(1).then();
-  //   });
-  // document
-  //   .querySelector('.movebox[id="2"]')
-  //   .addEventListener("click", async () => {
-  //     moveChoose(2).then();
-  //   });
-  // document
-  //   .querySelector('.movebox[id="3"]')
-  //   .addEventListener("click", async () => {
-  //     moveChoose(3).then();
-  //   });
 }
 async function moveChoose(n) {
   protagonist.currentMove = n;
@@ -633,7 +563,7 @@ async function changePokemon1() {
   let choose = false;
   for (let i = 0; i < 6; i++) {
     if (protagonist.pokemon[i].lvlhp != 0 && !choose) {
-      let chooseNew = document.querySelector('.pokebox1[id="' + `${i}` + '"]');
+      let chooseNew = document.querySelector(`.pokebox1[id="${i}"]`);
       chooseNew.addEventListener("click", async (e) => {
       let hp =  protagonist.pokemon[protagonist.activePokemon].lvlhp;
       if(hp!=0){
