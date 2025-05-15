@@ -64,11 +64,13 @@ body{
 
 #battle{
     width: 50.625rem;
+    position: relative;
+    top:0rem;
     display: flex;
 }
 
 #battle_area{
-    background-image: url('../files/battle_bg.gif');
+    background-image: url('../assets/battle_bg.gif');
     background-size:cover;
     width: 800px;
     height: 31.25rem;
@@ -134,6 +136,7 @@ body{
     width:15.625rem;
 }
 #battletext{
+    color:rgb(78, 25, 127);
     display: flex;
     justify-content: center;
     align-items: center;

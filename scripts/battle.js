@@ -1,6 +1,7 @@
 console.log("hello");
 const battletext = document.getElementById("battletext");
-
+const music = new Audio("assets/battle.mp3");
+music.loop = true;
 async function timer(ms) {
   return new Promise((res) => setTimeout(res, ms));
 }
@@ -388,8 +389,10 @@ async function Dmg() {
         ((22 * power1 * protMain.attack) / antiMain.defense / 50 + 2) * random1
       );
     }
+    let protimg= document.getElementById("protPokemon-img");
     if (dmg1 >= antiMain.lvlhp) 
       {
+      protimg.style.animate= "protattack 2s ease-in-out";
       battletext.innerText= antiMain.name+" recieved "+(antiMain.lvlhp)+" damage";
       await timer(2000);
 
@@ -405,10 +408,12 @@ async function Dmg() {
         {
           battletext.innerText= "You won the battle";
           await timer(5000);
+          return;
         }
     } 
     else 
     {
+      protimg.style.animate= "protattack 2s ease-in-out";
       antiMain.lvlhp -= dmg1;
       battletext.innerText=antiMain.name+" recieved "+(dmg1)+" damage";
       await timer(2000);
@@ -447,6 +452,7 @@ async function Dmg() {
       if(protagonist.numPokemon==0)
         {
           battletext.innerText= "You lost the battle";
+          return;
         }
       else
         {
@@ -459,6 +465,8 @@ async function Dmg() {
     }
     antiMain.moves[antagonist.currentMove].pp--;
   }
+  
+
   updatepkmn().then();
 }
 
@@ -536,6 +544,7 @@ async function updatepkmn() {
   if (protagonist.pokemon[protagonist.activePokemon].lvlhp == 0) {
     changePokemon1().then();
   }
+  battletext.innerText = "Choose a move";
 }
 async function updateMoves() {
   // movebox.style.pointerEvents = "auto";
@@ -548,14 +557,21 @@ async function updateMoves() {
     box.addEventListener("click", async (e) => {
       
       // if(protagonist.pokemon[protagonist.activePokemon].moves[i].pp==test)
-        
-          box.style.pointerEvents = "none";
+      for( let j = 0; j < 4; j++) {
+        let tbox = document.querySelector(
+          '.movebox[id="' + `${j}` + '"]'
+        );
+          tbox.style.pointerEvents = "none";
           setTimeout(() => {
-            box.style.pointerEvents = "auto"; 
+            tbox.style.pointerEvents = "auto"; 
           },  5000);
-      moveChoose(i);
-    });
   }
+  
+  moveChoose(i);
+  });
+  
+  }
+  
   // document
   //   .querySelector('.movebox[id="0"]')
   //   .addEventListener("click", async () => {
@@ -633,7 +649,7 @@ async function start() {
 
   body.style.display = "block";
   load.style.display = "none";
-
+  music.play();
   battletext.innerText = "Team Battle";
   await timer(2000);
   battletext.innerText = "Choose a move";
