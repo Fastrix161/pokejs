@@ -392,7 +392,10 @@ async function Dmg() {
     let protimg= document.getElementById("protPokemon-img");
     if (dmg1 >= antiMain.lvlhp) 
       {
-      protimg.style.animate= "protattack 2s ease-in-out";
+      protimg.style.animation= "protattack 2s ease-in-out";
+      setTimeout(() => {
+        protimg.style.animation= "none";
+      }, 2000);
       battletext.innerText= antiMain.name+" recieved "+(antiMain.lvlhp)+" damage";
       await timer(2000);
 
@@ -413,13 +416,18 @@ async function Dmg() {
     } 
     else 
     {
-      protimg.style.animate= "protattack 2s ease-in-out";
+      protimg.style.animation= "protattack 2s ease-in-out";
+      
+      setTimeout(() => {
+        protimg.style.animation= "none";
+      }, 2000);
       antiMain.lvlhp -= dmg1;
       battletext.innerText=antiMain.name+" recieved "+(dmg1)+" damage";
       await timer(2000);
     }
     protMain.moves[protagonist.currentMove].pp--;
   }
+
   if (antiMain.moves[antagonist.currentMove].accuracy / 100 < Math.random()) {
     atk2 = false;
     battletext.innerText= "Opponent's attack failed";
@@ -438,7 +446,12 @@ async function Dmg() {
         ((22 * power2 * antiMain.attack) / protMain.defense / 50 + 2) * random2
       );
     }
+    antiimg= document.getElementById("antiPokemon-img");
     if (dmg2 >= protMain.lvlhp) {
+      antiimg.style.animation= "antiattack 2s ease-in-out";
+      setTimeout(() => {
+        antiimg.style.animation= "none";
+      }, 2000);
       battletext.innerText= protMain.name+" recieved "+(protMain.lvlhp)+" damage";
       await timer(2000);
       battletext.innerText= protMain.name+" fainted";
@@ -459,6 +472,10 @@ async function Dmg() {
           battletext.innerText= "Select a new pokemon";
         }
     } else {
+      antiimg.style.animation= "antiattack 2s ease-in-out";
+      setTimeout(() => {
+        antiimg.style.animation= "none";
+      }, 2000);
       protMain.lvlhp -= dmg2;
       battletext.innerText=protMain.name+" recieved "+(dmg2)+" damage";
       await timer(2000);

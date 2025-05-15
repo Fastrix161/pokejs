@@ -92,9 +92,9 @@ body{
     /* border: rgb(238, 229, 229) 2px solid; */
 }
 
-#antiPokemon:hover #antiPokemon-img{
+/* #antiPokemon:hover #antiPokemon-img{
     animation: antiattack 2s ease-in-out;
-}
+} */
 
 #protPokemon{
     position:relative;
@@ -108,9 +108,9 @@ body{
     align-items: center;
     /* border: rgb(238, 229, 229) 2px solid; */
 }
-#protPokemon:hover #protPokemon-img{
+/* #protPokemon:hover #protPokemon-img{
     animation: protattack 2s ease-in-out;
-}
+} */
 
  #protPokemon-name{
     text-transform: capitalize;
