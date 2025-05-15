@@ -397,7 +397,7 @@ async function Dmg() {
         protimg.style.animation= "none";
       }, 2000);
       battletext.innerText= antiMain.name+" recieved "+(antiMain.lvlhp)+" damage";
-      await timer(2000);
+      await timer(1000);
 
       antiMain.lvlhp = 0;
       let antiM = document.querySelector(
@@ -406,9 +406,11 @@ async function Dmg() {
       
       antiM.style.backgroundColor = "red";
       battletext.innerText= antiMain.name+" fainted";
+      await timer(1000);
       antagonist.numPokemon--;
       if(antagonist.numPokemon==0)
         {
+          updatepkmn().then();
           battletext.innerText= "You won the battle";
           await timer(5000);
           return;
@@ -427,7 +429,11 @@ async function Dmg() {
     }
     protMain.moves[protagonist.currentMove].pp--;
   }
-
+  if(antiMain.lvlhp==0)
+  {
+    updatepkmn().then();
+    return;
+  }
   if (antiMain.moves[antagonist.currentMove].accuracy / 100 < Math.random()) {
     atk2 = false;
     battletext.innerText= "Opponent's attack failed";
@@ -453,9 +459,9 @@ async function Dmg() {
         antiimg.style.animation= "none";
       }, 2000);
       battletext.innerText= protMain.name+" recieved "+(protMain.lvlhp)+" damage";
-      await timer(2000);
+      await timer(1000);
       battletext.innerText= protMain.name+" fainted";
-      await timer(2000);
+      await timer(1000);
       protMain.lvlhp = 0;
       let protM = document.querySelector(
         '.pokebox1[id="' + `${protagonist.activePokemon}` + '"]'
@@ -469,7 +475,10 @@ async function Dmg() {
         }
       else
         {
+          updatepkmn().then();
           battletext.innerText= "Select a new pokemon";
+          await timer(2000);
+          return;
         }
     } else {
       antiimg.style.animation= "antiattack 2s ease-in-out";
@@ -482,8 +491,6 @@ async function Dmg() {
     }
     antiMain.moves[antagonist.currentMove].pp--;
   }
-  
-
   updatepkmn().then();
 }
 

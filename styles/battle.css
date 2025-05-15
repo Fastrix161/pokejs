@@ -1,7 +1,23 @@
-
 @media only screen and (max-width: 1320px) {
-    body{
+    #hbody{
         display: none;
+    }
+    #media{
+        display:block;
+        font-size: 2.5rem;
+        text-align: center;
+        
+        background-color: rgb(153, 184, 50);
+        width: 100vw;
+        height: 90vh;
+    }
+}
+@media only screen and (min-width: 1320px) {
+    #media{
+        display: none;
+    }
+    #hbody{
+        display: block;
     }
 }
 body{
