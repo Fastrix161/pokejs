@@ -1,3 +1,9 @@
+
+@media only screen and (max-width: 1320px) {
+    body{
+        display: none;
+    }
+}
 body{
     background-color: rgb(153, 184, 50);
     z-index: -1;
@@ -16,12 +22,11 @@ body{
 }   
 .nav{
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
 }
 #navtext{
-    padding-left: 50%;
-    font-size: 20px;
-    color: rgb(39, 56, 56);
+    font-size: 2rem;
+    color: rgb(110, 28, 172);
 }
 #up{
     display: flex;
@@ -32,10 +37,13 @@ body{
     flex-direction: column;
     justify-content: left;
     align-items: center;
-    /* padding-left: 50px; */
+}
+#protagonist-name{
+    font-size: 1.25rem;
+    color: brown;
 }
 #red{
-    width: 100px;
+    width: 6.25rem;
     height: auto;
 }
 
@@ -44,24 +52,26 @@ body{
     flex-direction: column;
     justify-content: right;
     align-items: center;
-    /* padding-right: 50px; */
 }
-
+#antagonist-name{
+    font-size: 1.25rem;
+    color: rgb(51, 96, 186);
+}
 #blue{
-    width: 90px;
+    width: 5.625rem;
     height: auto;
 }
 
 #battle{
-    width: 810px;
+    width: 50.625rem;
     display: flex;
 }
 
 #battle_area{
-    background-image: url('files/battle_bg.gif');
+    background-image: url('../files/battle_bg.gif');
     background-size:cover;
     width: 800px;
-    height: 500px;
+    height: 31.25rem;
     position: absolute;
     display: flex;
     border: black 2px solid;
@@ -69,34 +79,37 @@ body{
 
 #antiPokemon{
     position:relative;
-    top: 120px;
-    left: 600px;
-    width: 100px;
-    height: 200px;
+    top: 7.5rem;
+    left: 37.5rem;
+    width: 6.25rem;
+    height: 12.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: rgb(238, 229, 229) 2px solid;
+    /* border: rgb(238, 229, 229) 2px solid; */
+}
+
+#antiPokemon:hover #antiPokemon-img{
+    animation: antiattack 2s ease-in-out;
 }
 
 #protPokemon{
     position:relative;
-    top: 250px;
-    left: 100px;
-    width: 100px;
-    height: 200px;
+    top: 15.625rem;
+    left: 6.25rem;
+    width: 6.25rem;
+    height: 12.5rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: rgb(238, 229, 229) 2px solid;
+    /* border: rgb(238, 229, 229) 2px solid; */
 }
-/* 
-#battle_screen
-{
-    
-} */
+#protPokemon:hover #protPokemon-img{
+    animation: protattack 2s ease-in-out;
+}
+
  #protPokemon-name{
     text-transform: capitalize;
  }
@@ -110,7 +123,7 @@ body{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 250px;
+    width: 15.625rem;
 }
 #downPokemon{
     display: flex;
@@ -118,16 +131,16 @@ body{
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 250px;
+    width:15.625rem;
 }
 #battletext{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    font-size: 25px;
-    width: 800px;
-    height: 100px;
+    font-size: 1.5625rem;
+    width: 50rem;
+    height: 5rem;
     position : absolute;
     border: black 2px solid;
     background-color: rgb(149, 169, 193);
@@ -166,8 +179,8 @@ body{
     align-items: center;
     flex-wrap: wrap;
     border: black 2px solid;
-    width: 380px;
-    height: 50px;
+    width: 23.75rem;
+    height: 3.125rem;
     color: rgb(42, 116, 165);
     background-color: rgb(221, 209, 216);
     opacity: 0.95;
@@ -178,7 +191,7 @@ body{
 }
 .moveboxname{
     text-transform: capitalize;
-    font-size: 20px;
+    font-size: 1.25rem;
     color: brown;
 }
 #protPokemon-moves{
@@ -188,28 +201,51 @@ body{
     justify-content: space-between;
     align-items: space-between;
     flex-wrap: wrap;
-    width: 800px;
-    top: 550px;
-    border: rgb(224, 13, 13) 2px solid;
+    width: 50rem;
+    top: 34.375rem;
+    /* border: rgb(224, 13, 13) 2px solid; */
 }
 #hp1cover{
     border: black 3px solid;
-    width: 80px;
-    height: 10px;
+    width: 5rem;
+    height: 0.625rem;
 }
 
 #hpbar1{
     display: flex;
     background-color: rgb(14, 82, 44);
-    height: 10px;
+    height: 0.625rem;
 }
 #hp2cover{
     border: black 3px solid;
-    width: 80px;
-    height: 10px;
+    width: 5rem;
+    height: 0.625rem;
 }
 #hpbar2{
     display: flex;
     background-color: rgb(14, 82, 44);
-    height: 10px;
+    height: 0.625rem;
+}
+
+@keyframes protattack{
+    0%{
+        transform: translate(0rem, 0rem);
+    }
+    50%{
+        transform: translate(24rem, -6rem);
+    }
+    100%{
+        transform: translateX(0rem, 0rem);
+    }   
+}
+@keyframes antiattack{
+    0%{
+        transform: translate(0rem, 0rem);
+    }
+    50%{
+        transform: translate(-24rem, 6rem);
+    }
+    100%{
+        transform: translateX(0rem, 0rem);
+    }   
 }

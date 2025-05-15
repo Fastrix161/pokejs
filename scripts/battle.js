@@ -24,7 +24,22 @@ const antagonist = {
 async function getPokemon(id) {
   const res = await fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`);
   const data = await res.json();
-
+  let t =data.moves.length;
+  
+  if(t<4){
+    return null;
+  }
+  // for(let i=0;i<data.moves.length;i++){
+    
+  //   let moveData = await moveDetails(data.moves[i].move.url);
+  //   if((
+  //     moveData.accuracy==null)||(moveData.power==null)||(moveData.pp==null)){
+  //     t--;
+  //   }
+  //   }
+  // if(t<4){
+  //   return null;
+  // }
   const pokemon = {
     id: 1,
     name: "Bulbasaur",
@@ -104,38 +119,8 @@ async function moveDetails(link) {
   let moveData = await moveD.json();
   return moveData;
 }
-// async function makeTeam1()
-// {
-//     const arr=[];
-//     for(let i=0;i<6;i++){
-//         let id=await randInt(1,905);
-//         while(arr.includes(id)){
-//             id=await randInt(1,905);
-//         }
-//         let poke=await getPokemon(id);
-//         arr.push(id);
-//         protagonist.pokemon.push(poke);
-// }
-// protPoke(protagonist.pokemon[0])
-// }
-// async function makeTeam2()
-// {
-//     const arr=[];
-//     for(let i=0;i<6;i++){
-//         let id=await randInt(1,905);
-//         while(arr.includes(id)){
-//             id=await randInt(1,905);
-//         }
-//         let poke=await getPokemon(id);
-//         arr.push(id);
-//         antagonist.pokemon.push(poke)
-// }
-// antiPoke(antagonist.pokemon[0])
-// }
-
 async function Team1() {
   const up = document.getElementById("upPokemon");
-
   const arr = [];
   for (let i = 0; i < 6; i++) {
     let id = await randInt(1, 905);
@@ -143,6 +128,10 @@ async function Team1() {
       id = await randInt(1, 905);
     }
     let pkmn = await getPokemon(id);
+    if (pkmn == null) {
+      i--;
+      continue;
+    }
     arr.push(id);
     protagonist.pokemon.push(pkmn);
 
@@ -180,7 +169,6 @@ async function Team1() {
   protagonist.activePokemon = 0;
   protPoke(protagonist.pokemon[protagonist.activePokemon]);
   protagonist.numPokemon = 6;
-  // Team1.push(pokemon);
 }
 
 async function Team2() {
@@ -192,6 +180,10 @@ async function Team2() {
       id = await randInt(1, 905);
     }
     let pkmn = await getPokemon(id);
+    if (pkmn == null) {
+      i--;
+      continue;
+    }
     arr.push(id);
     antagonist.pokemon.push(pkmn);
 
@@ -304,6 +296,8 @@ async function chngPoke1(data) {
     moveboxpp.style.color = "rgb(42, 116, 165)";
     let moveboxaccuracy = document.getElementsByClassName("moveboxaccuracy")[i];
     moveboxaccuracy.textContent = `Accuracy: ${moveD.accuracy}%`;
+
+
   }
   const hpbar1 = document.getElementById("hpbar1");
   hpbar1.style.width = 100 + "%";
@@ -375,7 +369,8 @@ async function Dmg() {
   let atk2 = true;
   if (protMain.moves[protagonist.currentMove].accuracy / 100 < Math.random()) {
     atk1 = false;
-    battletext.innerHTML("You attack failed");
+    battletext.innerText= "Your attack failed";
+    await timer(2000);
   }
 
   let dmg1 = 0;
@@ -393,23 +388,37 @@ async function Dmg() {
         ((22 * power1 * protMain.attack) / antiMain.defense / 50 + 2) * random1
       );
     }
-    if (dmg1 >= antiMain.lvlhp) {
+    if (dmg1 >= antiMain.lvlhp) 
+      {
+      battletext.innerText= antiMain.name+" recieved "+(antiMain.lvlhp)+" damage";
+      await timer(2000);
+
       antiMain.lvlhp = 0;
       let antiM = document.querySelector(
         '.pokebox2[id="' + `${antagonist.activePokemon}` + '"]'
       );
+      
       antiM.style.backgroundColor = "red";
-      // battletext.innerText(antiMain+" recieved " );
+      battletext.innerText= antiMain.name+" fainted";
       antagonist.numPokemon--;
-    } else {
+      if(antagonist.numPokemon==0)
+        {
+          battletext.innerText= "You won the battle";
+          await timer(5000);
+        }
+    } 
+    else 
+    {
       antiMain.lvlhp -= dmg1;
+      battletext.innerText=antiMain.name+" recieved "+(dmg1)+" damage";
+      await timer(2000);
     }
     protMain.moves[protagonist.currentMove].pp--;
   }
-  // await Timer(1000);
   if (antiMain.moves[antagonist.currentMove].accuracy / 100 < Math.random()) {
     atk2 = false;
-    battletext.innerText("Rivals attack failed");
+    battletext.innerText= "Opponent's attack failed";
+    await timer(2000);
   }
   if (atk2) {
     let power2 = antiMain.moves[antagonist.currentMove].power;
@@ -425,14 +434,28 @@ async function Dmg() {
       );
     }
     if (dmg2 >= protMain.lvlhp) {
+      battletext.innerText= protMain.name+" recieved "+(protMain.lvlhp)+" damage";
+      await timer(2000);
+      battletext.innerText= protMain.name+" fainted";
+      await timer(2000);
       protMain.lvlhp = 0;
       let protM = document.querySelector(
         '.pokebox1[id="' + `${protagonist.activePokemon}` + '"]'
       );
       protM.style.backgroundColor = "red";
       protagonist.numPokemon--;
+      if(protagonist.numPokemon==0)
+        {
+          battletext.innerText= "You lost the battle";
+        }
+      else
+        {
+          battletext.innerText= "Select a new pokemon";
+        }
     } else {
       protMain.lvlhp -= dmg2;
+      battletext.innerText=protMain.name+" recieved "+(dmg2)+" damage";
+      await timer(2000);
     }
     antiMain.moves[antagonist.currentMove].pp--;
   }
@@ -515,26 +538,44 @@ async function updatepkmn() {
   }
 }
 async function updateMoves() {
-  document
-    .querySelector('.movebox[id="0"]')
-    .addEventListener("click", async () => {
-      moveChoose(0).then();
+  // movebox.style.pointerEvents = "auto";
+  for( let i = 0; i < 4; i++) {
+    let box = document.querySelector(
+      '.movebox[id="' + `${i}` + '"]'
+    );
+    // let test=
+    // protagonist.pokemon[protagonist.activePokemon].moves[i].pp;
+    box.addEventListener("click", async (e) => {
+      
+      // if(protagonist.pokemon[protagonist.activePokemon].moves[i].pp==test)
+        
+          box.style.pointerEvents = "none";
+          setTimeout(() => {
+            box.style.pointerEvents = "auto"; 
+          },  5000);
+      moveChoose(i);
     });
-  document
-    .querySelector('.movebox[id="1"]')
-    .addEventListener("click", async () => {
-      moveChoose(1).then();
-    });
-  document
-    .querySelector('.movebox[id="2"]')
-    .addEventListener("click", async () => {
-      moveChoose(2).then();
-    });
-  document
-    .querySelector('.movebox[id="3"]')
-    .addEventListener("click", async () => {
-      moveChoose(3).then();
-    });
+  }
+  // document
+  //   .querySelector('.movebox[id="0"]')
+  //   .addEventListener("click", async () => {
+  //     moveChoose(0).then();
+  //   });
+  // document
+  //   .querySelector('.movebox[id="1"]')
+  //   .addEventListener("click", async () => {
+  //     moveChoose(1).then();
+  //   });
+  // document
+  //   .querySelector('.movebox[id="2"]')
+  //   .addEventListener("click", async () => {
+  //     moveChoose(2).then();
+  //   });
+  // document
+  //   .querySelector('.movebox[id="3"]')
+  //   .addEventListener("click", async () => {
+  //     moveChoose(3).then();
+  //   });
 }
 async function moveChoose(n) {
   protagonist.currentMove = n;
@@ -542,7 +583,7 @@ async function moveChoose(n) {
   if (
     protagonist.pokemon[protagonist.activePokemon].moves[
       protagonist.currentMove
-    ].pp != 0 &&
+    ].pp >= 0 &&
     protagonist.pokemon[protagonist.activePokemon].lvlhp != 0
   ) {
     Dmg().then();
@@ -555,31 +596,22 @@ async function changePokemon1() {
       let chooseNew = document.querySelector('.pokebox1[id="' + `${i}` + '"]');
       chooseNew.addEventListener("click", async (e) => {
       let hp =  protagonist.pokemon[protagonist.activePokemon].lvlhp;
-      if(hp>0){
-        // e.preventDefault();
+      if(hp!=0){
+        e.preventDefault();
         return
       }
         protagonist.activePokemon = i;
-        removelisten().then();
         choose = true;
         chngPoke1(protagonist.pokemon[protagonist.activePokemon]).then();
+        battletext.innerText=protagonist.pokemon[protagonist.activePokemon].name + " has entered the battle";
       });
     }
-  }
-}
-async function removelisten() {
-  for (let i = 0; i < 6; i++) {
-    let chooseNew = document.querySelector('.pokebox1[id="' + `${i}` + '"]');
-    chooseNew.removeEventListener("click", async () => {
-      protagonist.activePokemon = i;
-      choose = true;
-      chngPoke1(protagonist.pokemon[protagonist.activePokemon]).then();
-    });
   }
 }
 async function changePokemon2() {
   antagonist.activePokemon++;
   antiPoke(antagonist.pokemon[antagonist.activePokemon]).then();
+  battletext.innerText=antagonist.pokemon[antagonist.activePokemon].name + " has entered the battle";
 }
 
 function loadImage(img, src) {
@@ -605,7 +637,8 @@ async function start() {
   battletext.innerText = "Team Battle";
   await timer(2000);
   battletext.innerText = "Choose a move";
-  await updateMoves();
+  updateMoves().then();
+
 }
 
 start().then();
