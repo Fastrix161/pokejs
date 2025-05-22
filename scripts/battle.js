@@ -1,4 +1,3 @@
-console.log("hello");
 const battletext = document.getElementById("battletext");
 const music = new Audio("assets/battle.mp3");
 music.loop = true;
@@ -425,6 +424,7 @@ async function Dmg() {
       protagonist.numPokemon--;
       if(protagonist.numPokemon==0)
         {
+          updatepkmn().then();
           battletext.innerText= "You lost the battle";
           return;
         }
@@ -517,10 +517,10 @@ async function updatepkmn() {
   ) {
     pp1.style.color = "red";
   }
-  if (antagonist.pokemon[antagonist.activePokemon].lvlhp == 0) {
+  if (antagonist.pokemon[antagonist.activePokemon].lvlhp == 0 && antagonist.numPokemon>0) {
     changePokemon2().then();
   }
-  if (protagonist.pokemon[protagonist.activePokemon].lvlhp == 0) {
+  if (protagonist.pokemon[protagonist.activePokemon].lvlhp == 0 && protagonist.numPokemon>0) {
     changePokemon1().then();
   }
   battletext.innerText = "Choose a move";
@@ -553,7 +553,7 @@ async function moveChoose(n) {
   if (
     protagonist.pokemon[protagonist.activePokemon].moves[
       protagonist.currentMove
-    ].pp >= 0 &&
+    ].pp > 0 &&
     protagonist.pokemon[protagonist.activePokemon].lvlhp != 0
   ) {
     Dmg().then();
